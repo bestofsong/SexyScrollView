@@ -21,8 +21,6 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 
 @property (assign, nonatomic) NSInteger lastVisiblePageIndex;
 
-@property (assign, nonatomic) CGFloat initialOffsetY;
-
 @end
 
 @implementation ZKVerticalFlexPageViewController
@@ -75,7 +73,6 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
                     forKeyPath:@"contentOffset"
                        options:NSKeyValueObservingOptionNew
                        context:OffsetKVOCtx];
-  self.initialOffsetY = firstScrollView.contentOffset.y;
 }
 
 - (void)dealloc {
@@ -173,7 +170,6 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
                          forKeyPath:@"contentOffset"
                             options:NSKeyValueObservingOptionNew
                             context:OffsetKVOCtx];
-    self.initialOffsetY = incomingScrollView.contentOffset.y;
   }
   self.lastVisiblePageIndex = currentVisibleIndex;
 }
@@ -187,15 +183,20 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
       [self addPageViewController:self.pagesArray[incomingIndex] atIndex:incomingIndex];
     }
     CGPoint offset = incomingScrollView.contentOffset;
-    offset.y = MAX(offset.y, -[self innerScrollTopInset] - [self currentTranslationY]);
-    incomingScrollView.contentOffset = offset;
+    if (-[self currentTranslationY] < [self maxOffsetBeforeHalt]) {
+      offset.y = -[self innerScrollTopInset] - [self currentTranslationY];
+      incomingScrollView.contentOffset = offset;
+    }else {
+      offset.y = MAX(offset.y, -[self innerScrollTopInset] - [self currentTranslationY]);
+      incomingScrollView.contentOffset = offset;
+    }
   }
   
 }
 
 #pragma mark - convenient methods: scroll horizonally
 - (NSInteger)visiblePageIndex {
-  return (NSInteger)floor((self.horizonalScrollView.contentOffset.x+0.5) / ScreenW);
+  return (NSInteger)floor(self.horizonalScrollView.contentOffset.x/ScreenW + .5);
 }
 
 - (UIScrollView*)visiblePageView {
@@ -206,7 +207,7 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 
 - (NSInteger)incomingIndex {
   NSInteger visible = [self visiblePageIndex];
-  return self.horizonalScrollView.contentOffset.x > (visible+0.5)*ScreenW ? visible + 1 : visible - 1;
+  return self.horizonalScrollView.contentOffset.x > visible*ScreenW ? visible + 1 : visible - 1;
 }
 
 @end
