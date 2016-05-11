@@ -13,6 +13,8 @@
 		F724317B1CE37B43000C441E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F72431791CE37B43000C441E /* Main.storyboard */; };
 		F724317D1CE37B43000C441E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F724317C1CE37B43000C441E /* Assets.xcassets */; };
 		F72431801CE37B43000C441E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F724317E1CE37B43000C441E /* LaunchScreen.storyboard */; };
+		F724318A1CE38426000C441E /* ZKVerticalFlexPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */; };
+		F724318D1CE3A509000C441E /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F724318C1CE3A509000C441E /* TestTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		F724317C1CE37B43000C441E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F724317F1CE37B43000C441E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F72431811CE37B43000C441E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F72431881CE38426000C441E /* ZKVerticalFlexPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKVerticalFlexPageViewController.h; path = Exports/ZKVerticalFlexPageViewController.h; sourceTree = "<group>"; };
+		F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKVerticalFlexPageViewController.m; path = Exports/ZKVerticalFlexPageViewController.m; sourceTree = "<group>"; };
+		F724318B1CE3A509000C441E /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		F724318C1CE3A509000C441E /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		F724316F1CE37B43000C441E /* SexyScrollViews */ = {
 			isa = PBXGroup;
 			children = (
+				F72431871CE3840E000C441E /* Exports */,
 				F72431731CE37B43000C441E /* AppDelegate.h */,
 				F72431741CE37B43000C441E /* AppDelegate.m */,
 				F72431761CE37B43000C441E /* ViewController.h */,
@@ -67,6 +74,8 @@
 				F724317E1CE37B43000C441E /* LaunchScreen.storyboard */,
 				F72431811CE37B43000C441E /* Info.plist */,
 				F72431701CE37B43000C441E /* Supporting Files */,
+				F724318B1CE3A509000C441E /* TestTableViewController.h */,
+				F724318C1CE3A509000C441E /* TestTableViewController.m */,
 			);
 			path = SexyScrollViews;
 			sourceTree = "<group>";
@@ -77,6 +86,15 @@
 				F72431711CE37B43000C441E /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F72431871CE3840E000C441E /* Exports */ = {
+			isa = PBXGroup;
+			children = (
+				F72431881CE38426000C441E /* ZKVerticalFlexPageViewController.h */,
+				F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */,
+			);
+			name = Exports;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +169,9 @@
 			files = (
 				F72431781CE37B43000C441E /* ViewController.m in Sources */,
 				F72431751CE37B43000C441E /* AppDelegate.m in Sources */,
+				F724318D1CE3A509000C441E /* TestTableViewController.m in Sources */,
 				F72431721CE37B43000C441E /* main.m in Sources */,
+				F724318A1CE38426000C441E /* ZKVerticalFlexPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
