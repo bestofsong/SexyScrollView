@@ -10,5 +10,5 @@
 #import "ZKVerticalFlexPageViewController.h"
 
 @interface TestTableViewController : UITableViewController<ScrollPropertyDelegate>
-
+@property (assign, nonatomic) NSInteger nCells;
 @end

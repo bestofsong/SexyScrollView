@@ -7,6 +7,7 @@
 //
 
 #import "ZKVerticalFlexPageViewController.h"
+#import "UIScrollView+Utility.h"
 
 #define ScreenW [UIScreen mainScreen].bounds.size.width
 #define ScreenH [UIScreen mainScreen].bounds.size.height
@@ -177,19 +178,24 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
   //adjusting next or prev scrollview before it shows!
   NSInteger incomingIndex = [self incomingIndex];
-  if (incomingIndex >= 0 && incomingIndex < self.pagesArray.count) {
+  if (scrollView == self.horizonalScrollView && incomingIndex >= 0 && incomingIndex < self.pagesArray.count) {
     UIScrollView *incomingScrollView = self.pagesArray[incomingIndex].scrollView;
     if (incomingScrollView.superview != self.horizonalScrollView) {
       [self addPageViewController:self.pagesArray[incomingIndex] atIndex:incomingIndex];
     }
+    
     CGPoint offset = incomingScrollView.contentOffset;
+    CGFloat currentOffsetY = -[self innerScrollTopInset] - [self currentTranslationY];
     if (-[self currentTranslationY] < [self maxOffsetBeforeHalt]) {
-      offset.y = -[self innerScrollTopInset] - [self currentTranslationY];
-      incomingScrollView.contentOffset = offset;
+      offset.y = MIN(incomingScrollView.maxScrollY, currentOffsetY);
     }else {
-      offset.y = MAX(offset.y, -[self innerScrollTopInset] - [self currentTranslationY]);
-      incomingScrollView.contentOffset = offset;
+      offset.y = MIN(incomingScrollView.maxScrollY, MAX(offset.y, currentOffsetY));
     }
+    
+    [UIView animateWithDuration:0.2 animations:^{
+      incomingScrollView.contentOffset = offset;
+      [self reLayoutWithInnerScrollOffset:incomingScrollView.contentOffset.y];
+    }];
   }
   
 }
@@ -207,7 +213,18 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 
 - (NSInteger)incomingIndex {
   NSInteger visible = [self visiblePageIndex];
-  return self.horizonalScrollView.contentOffset.x > visible*ScreenW ? visible + 1 : visible - 1;
+  CGPoint v =
+  [self.horizonalScrollView.panGestureRecognizer velocityInView:self.horizonalScrollView.panGestureRecognizer.view];
+  NSInteger ret = self.horizonalScrollView.contentOffset.x > visible*ScreenW ? visible + 1 : visible - 1;
+  
+  if (v.x < 0) {
+    return MAX(visible, ret);
+  }else if (v.x == 0) {
+    return visible;
+  }else {
+    return MIN(visible, ret);
+  }
+  
 }
 
 @end

@@ -15,6 +15,7 @@
 		F72431801CE37B43000C441E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F724317E1CE37B43000C441E /* LaunchScreen.storyboard */; };
 		F724318A1CE38426000C441E /* ZKVerticalFlexPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */; };
 		F724318D1CE3A509000C441E /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F724318C1CE3A509000C441E /* TestTableViewController.m */; };
+		F752142A1CEE1780006487E2 /* UIScrollView+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = F75214291CEE1780006487E2 /* UIScrollView+Utility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKVerticalFlexPageViewController.m; path = Exports/ZKVerticalFlexPageViewController.m; sourceTree = "<group>"; };
 		F724318B1CE3A509000C441E /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
 		F724318C1CE3A509000C441E /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
+		F75214281CEE1780006487E2 /* UIScrollView+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Utility.h"; path = "Exports/UIScrollView+Utility.h"; sourceTree = "<group>"; };
+		F75214291CEE1780006487E2 /* UIScrollView+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Utility.m"; path = "Exports/UIScrollView+Utility.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 			children = (
 				F72431881CE38426000C441E /* ZKVerticalFlexPageViewController.h */,
 				F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */,
+				F75214281CEE1780006487E2 /* UIScrollView+Utility.h */,
+				F75214291CEE1780006487E2 /* UIScrollView+Utility.m */,
 			);
 			name = Exports;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				F72431751CE37B43000C441E /* AppDelegate.m in Sources */,
 				F724318D1CE3A509000C441E /* TestTableViewController.m in Sources */,
 				F72431721CE37B43000C441E /* main.m in Sources */,
+				F752142A1CEE1780006487E2 /* UIScrollView+Utility.m in Sources */,
 				F724318A1CE38426000C441E /* ZKVerticalFlexPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +326,7 @@
 				F72431861CE37B43000C441E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

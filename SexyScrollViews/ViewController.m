@@ -37,7 +37,9 @@
   
   NSMutableArray *vcs = [NSMutableArray array];
   for (NSInteger i = 0; i < 3; i++) {
-    [vcs addObject:[TestTableViewController new]];
+    TestTableViewController *tvc = [TestTableViewController new];
+    tvc.nCells = i*i*40 + 5;
+    [vcs addObject:tvc];
   }
   vc.pagesArray = vcs;
   
