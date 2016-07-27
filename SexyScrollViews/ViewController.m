@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "ZKVerticalFlexPageViewController.h"
 #import "TestTableViewController.h"
+#import "ZKScrollableTabsView.h"
 
 @interface ViewController ()
 
@@ -32,8 +33,12 @@
   
   CGRect dummyTabViewFrame = [UIScreen mainScreen].bounds;
   dummyTabViewFrame.size.height = 60;
-  vc.snapBarView = [[UIView alloc] initWithFrame:dummyTabViewFrame];
-  vc.snapBarView.backgroundColor = [UIColor orangeColor];
+  vc.snapBarView = [[ZKScrollableTabsView alloc]
+                    initWithFrame:dummyTabViewFrame
+                    tabNames:@[
+                               @"goodbye", @"oc", @"hello", @"swift", @"php is the best of languages"
+                               ]
+                    ];
   
   NSMutableArray *vcs = [NSMutableArray array];
   for (NSInteger i = 0; i < 3; i++) {

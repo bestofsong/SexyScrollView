@@ -201,6 +201,7 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 }
 
 #pragma mark - convenient methods: scroll horizonally
+//define visible: middle line in (0, ScreenWidth]
 - (NSInteger)visiblePageIndex {
   return (NSInteger)floor(self.horizonalScrollView.contentOffset.x/ScreenW + .5);
 }
