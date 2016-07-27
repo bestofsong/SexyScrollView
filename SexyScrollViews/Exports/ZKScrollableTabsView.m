@@ -15,7 +15,12 @@
 @property (strong, nonatomic) UIView *contentView;
 @property (strong, nonatomic) NSArray<UIButton*> *tabs;
 
+@property (strong, nonatomic) UIView *cursorLine;
+@property (strong, nonatomic) NSArray *movableConstraints;
+
 @property (strong, nonatomic) UIView *backgroundLine;
+
+@property (assign, nonatomic) CGFloat cursorLineWidth;
 
 @end
 
@@ -33,7 +38,11 @@ GenLayoutAttributeAsPropertyWithDefaultValue(tabSpacingH, 5);
 GenLayoutAttributeAsPropertyWithDefaultValue(movingLineWidth, 2);
 GenLayoutAttributeAsGetterWithDefaultValue(backgroundLineWidth, 1.0 / [UIScreen mainScreen].scale);
 GenObjectPropertyWithDefaultValue(tabTitleColor, [UIColor blackColor]);
-GenObjectPropertyWithDefaultValue(backgroundLineColor, [UIColor colorWithRed:96 green:96 blue:96 alpha:.6]);
+GenObjectPropertyWithDefaultValue(backgroundLineColor, [UIColor colorWithRed:200 green:0 blue:0 alpha:1]);
+
+GenLayoutAttributeAsPropertyWithDefaultValue(cursorLineWidth, 2);
+
+GenObjectPropertyWithDefaultValue(cursorLineColor, [UIColor redColor]);
 
 - (void)setupSubviews:(NSArray<NSString*>*)tabNames {
   if (!tabNames.count) return;
@@ -51,13 +60,9 @@ GenObjectPropertyWithDefaultValue(backgroundLineColor, [UIColor colorWithRed:96 
     make.height.equalTo(self.scrollView.mas_height).offset(-self.backgroundLineWidth);
   }];
   
-  UIView *backgroundLine = [[UIView alloc] init];
-  self.backgroundLine = backgroundLine;
-  backgroundLine.backgroundColor = self.backgroundLineColor;
-  [self.scrollView addSubview:backgroundLine];
-  [self layoutBackgroundLine:0];
+  [self installBackgroundLine];
   
-  NSMutableArray<UIView*> *buttons = [NSMutableArray array];
+  NSMutableArray<UIButton*> *buttons = [NSMutableArray array];
   
   [tabNames enumerateObjectsUsingBlock:
    ^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -88,10 +93,65 @@ GenObjectPropertyWithDefaultValue(backgroundLineColor, [UIColor colorWithRed:96 
      
   }];
   
+  self.tabs = buttons;
+  
+  [self installCursorLine];
+  
+}
+
+- (void)installBackgroundLine {
+  UIView *backgroundLine = [[UIView alloc] init];
+  self.backgroundLine = backgroundLine;
+  backgroundLine.backgroundColor = self.backgroundLineColor;
+  [self.scrollView addSubview:backgroundLine];
+  [self layoutBackgroundLine:0];
+}
+
+- (void)installCursorLine {
+  UIView *cursorLine = [[UIView alloc] init];
+  cursorLine.backgroundColor = self.cursorLineColor;
+  self.cursorLine = cursorLine;
+  [self.contentView addSubview:cursorLine];
+  
+  [cursorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.height.equalTo(@(self.cursorLineWidth));
+    make.bottom.equalTo(self.contentView.mas_bottom).offset(self.backgroundLineWidth);
+  }];
+  
+  [self updateCursorLineConstraintsForIndex:0 animated:NO];
+  
+}
+
+- (void)updateCursorLineConstraintsForIndex:(NSInteger)index animated:(BOOL)animated {
+  if (index >= self.tabs.count) return;
+  
+  [self.movableConstraints enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [(MASConstraint*)obj uninstall];
+  }];
+  
+  UIButton *currentBt = self.tabs[index];
+  
+  NSMutableArray *updates = [NSMutableArray array];
+  [self.cursorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+    [updates addObject:make.centerX.equalTo(currentBt.mas_centerX)];
+    [updates addObject:make.width.equalTo(currentBt.mas_width)];
+  }];
+  
+  self.movableConstraints = updates;
+  
+  if (animated) {
+    [UIView animateWithDuration:0.25 animations:^{
+      [self layoutIfNeeded];
+    }];
+  }
+  
 }
 
 - (void)tabAction:(UIButton*)bt {
   NSLog(@"button: %ld has been tapped", bt.tag);
+  [self updateCursorLineConstraintsForIndex:bt.tag animated:YES];
+  [self.scrollView scrollRectToVisible:bt.frame animated:YES];
+  [self.delegate scrollableTabsViewDidChangeToIndex:bt.tag];
 }
 
 - (void)layoutBackgroundLine:(CGFloat)offset {
@@ -107,6 +167,23 @@ GenObjectPropertyWithDefaultValue(backgroundLineColor, [UIColor colorWithRed:96 
   if (scrollView == self.scrollView) {
     [self layoutBackgroundLine:scrollView.contentOffset.x];
   }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+  NSLog(@"did end decelerating");
+  [self handleScrollEndChange];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+  NSLog(@"did end scroll animation");
+  [self handleScrollEndChange];
+}
+
+- (void)handleScrollEndChange {
+}
+
+- (void)horizonalScrollDidEndAt:(NSInteger)index {
+  [self updateCursorLineConstraintsForIndex:index animated:YES];
 }
 
 @end

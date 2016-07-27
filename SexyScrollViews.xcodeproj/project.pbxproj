@@ -74,6 +74,8 @@
 		F72431891CE38426000C441E /* ZKVerticalFlexPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKVerticalFlexPageViewController.m; path = Exports/ZKVerticalFlexPageViewController.m; sourceTree = "<group>"; };
 		F724318B1CE3A509000C441E /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
 		F724318C1CE3A509000C441E /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
+		F72EFE0A1D491C640075AB7F /* ZKVerticalFlexPageViewController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ZKVerticalFlexPageViewController+Private.h"; path = "Exports/ZKVerticalFlexPageViewController+Private.h"; sourceTree = "<group>"; };
+		F72EFE0B1D4920CF0075AB7F /* ZKScrollableTabsViewController+Delegates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ZKScrollableTabsViewController+Delegates.h"; path = "Exports/ZKScrollableTabsViewController+Delegates.h"; sourceTree = "<group>"; };
 		F75214281CEE1780006487E2 /* UIScrollView+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Utility.h"; path = "Exports/UIScrollView+Utility.h"; sourceTree = "<group>"; };
 		F75214291CEE1780006487E2 /* UIScrollView+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Utility.m"; path = "Exports/UIScrollView+Utility.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +178,8 @@
 				8A2FE4DC1D48BC1A00960E70 /* ZKScrollableTabsViewController.m */,
 				8A2FE4DE1D48BC4F00960E70 /* ZKScrollableTabsView.h */,
 				8A2FE4DF1D48BC4F00960E70 /* ZKScrollableTabsView.m */,
+				F72EFE0A1D491C640075AB7F /* ZKVerticalFlexPageViewController+Private.h */,
+				F72EFE0B1D4920CF0075AB7F /* ZKScrollableTabsViewController+Delegates.h */,
 			);
 			name = Exports;
 			sourceTree = "<group>";

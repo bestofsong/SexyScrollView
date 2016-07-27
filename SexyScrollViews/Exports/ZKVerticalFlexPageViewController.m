@@ -7,6 +7,7 @@
 //
 
 #import "ZKVerticalFlexPageViewController.h"
+#import "ZKVerticalFlexPageViewController+Private.h"
 #import "UIScrollView+Utility.h"
 
 #define ScreenW [UIScreen mainScreen].bounds.size.width
@@ -159,6 +160,10 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 #pragma mark - horizonal scroll delegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
   [self updateKvoObject];
+  
+  if (self.horizonalDelegate) {
+    [self.horizonalDelegate horizonalScrollDidEndAt:[self visiblePageIndex]];
+  }
 }
 
 - (void)updateKvoObject {
@@ -226,6 +231,14 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
     return MIN(visible, ret);
   }
   
+}
+
+- (void)scrollableTabsViewDidChangeToIndex:(NSInteger)index {
+  NSLog(@"%@ ----- %@", self.horizonalScrollView, self.pagesArray[index].scrollView);
+  CGRect frame = self.horizonalScrollView.frame;
+  frame.origin.x = frame.size.width * index;
+  NSLog(@"%@", [NSValue valueWithCGRect:frame]);
+  [self.horizonalScrollView scrollRectToVisible:frame animated:YES];
 }
 
 @end

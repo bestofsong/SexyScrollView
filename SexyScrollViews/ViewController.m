@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "ZKVerticalFlexPageViewController.h"
+#import "ZKScrollableTabsViewController.h"
 #import "TestTableViewController.h"
 #import "ZKScrollableTabsView.h"
 
@@ -24,21 +24,12 @@
 }
 
 - (void)butAction:(UIButton*)sender {
-  ZKVerticalFlexPageViewController *vc = [ZKVerticalFlexPageViewController new];
+  ZKScrollableTabsViewController *vc = [ZKScrollableTabsViewController new];
   UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"boy"]];
   imgv.contentMode = UIViewContentModeScaleAspectFit;
   [imgv sizeToFit];
   imgv.backgroundColor = [UIColor redColor];
   vc.headerView = imgv;
-  
-  CGRect dummyTabViewFrame = [UIScreen mainScreen].bounds;
-  dummyTabViewFrame.size.height = 60;
-  vc.snapBarView = [[ZKScrollableTabsView alloc]
-                    initWithFrame:dummyTabViewFrame
-                    tabNames:@[
-                               @"goodbye", @"oc", @"hello", @"swift", @"php is the best of languages"
-                               ]
-                    ];
   
   NSMutableArray *vcs = [NSMutableArray array];
   for (NSInteger i = 0; i < 3; i++) {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZKScrollableTabsViewController+Delegates.h"
 
 #define GenLayoutAttributeAsPropertyWithDefaultValue(propertyName, value) GenLayoutAttributeAsGetterWithDefaultValue(propertyName, value)
 
@@ -26,17 +27,9 @@
   return _##propertyName;\
 }
 
-@protocol ZKScrollableTabsViewDelegate <NSObject>
-
-- (void)scrollableTabsViewDidStopAt:(NSInteger)index;
-
-@end
-
-@interface ZKScrollableTabsView : UIView
+@interface ZKScrollableTabsView : UIView<HorizonalScrollDelegate>
 
 - (instancetype)initWithFrame:(CGRect)frame tabNames:(NSArray*)names;
-
-@property (weak, nonatomic) id<ZKScrollableTabsViewDelegate> delegate;
 
 @property (assign, nonatomic) CGFloat tabSpacingH;
 @property (assign, nonatomic) CGFloat movingLineWidth;
@@ -44,6 +37,8 @@
 
 @property (strong, nonatomic) UIColor *tabTitleColor;
 @property (strong, nonatomic) UIColor *backgroundLineColor;
+@property (strong, nonatomic) UIColor *cursorLineColor;
 
+@property (weak, nonatomic) id<ScrollableTabsDidChangeDelegate> delegate;
 
 @end
