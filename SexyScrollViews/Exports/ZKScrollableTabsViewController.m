@@ -34,6 +34,7 @@
                                       ];
     tabsView.delegate = self;
     _snapBarView = tabsView;
+    tabsView.backgroundColor = [UIColor whiteColor];
   }
   return _snapBarView;
 }

@@ -27,6 +27,7 @@
   ZKScrollableTabsViewController *vc = [ZKScrollableTabsViewController new];
   UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"boy"]];
   imgv.contentMode = UIViewContentModeScaleAspectFit;
+  imgv.userInteractionEnabled = YES;
   [imgv sizeToFit];
   imgv.backgroundColor = [UIColor redColor];
   vc.headerView = imgv;

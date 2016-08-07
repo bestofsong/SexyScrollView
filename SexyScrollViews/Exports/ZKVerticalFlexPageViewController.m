@@ -57,6 +57,16 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
 }
 
 - (void)initialLayout {
+  {
+    CGRect tmp = self.headerView.bounds;
+    tmp.size.width = ScreenW;
+    self.headerView.bounds = tmp;
+    
+    tmp = self.snapBarView.bounds;
+    tmp.size.width = ScreenW;
+    self.snapBarView.bounds = tmp;
+  }
+  
   CGFloat topExtend = self.topLayoutGuide.length;
   CGFloat botExtend = CGRectGetHeight(self.view.bounds) - self.bottomLayoutGuide.length;
   
