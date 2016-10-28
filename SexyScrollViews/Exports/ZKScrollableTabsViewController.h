@@ -10,4 +10,8 @@
 
 @interface ZKScrollableTabsViewController : ZKVerticalFlexPageViewController
 
+@property (copy, nonatomic) NSString *headerImageName;
+
+@property (copy, nonatomic) NSArray *pageConfigs;//{type, dataSource, }
+
 @end
