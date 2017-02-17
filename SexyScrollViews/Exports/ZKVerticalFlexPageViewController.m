@@ -251,4 +251,12 @@ static void *OffsetKVOCtx = &OffsetKVOCtx;
   [self.horizonalScrollView scrollRectToVisible:frame animated:YES];
 }
 
+- (void)onHeaderPanned:(CGFloat)deltaY {
+  CGPoint offset = [self visiblePageView].contentOffset;
+  offset.y -= deltaY;
+  offset.y = MIN(offset.y, [self visiblePageView].maxScrollY);
+  offset.y = MAX(offset.y, -[self innerScrollTopInset]);
+  [[self visiblePageView] setContentOffset:offset animated:NO];
+}
+
 @end

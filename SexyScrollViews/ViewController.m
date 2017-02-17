@@ -55,9 +55,10 @@
 
 @end
 
-@interface ViewController ()
+@interface ViewController () <UIGestureRecognizerDelegate>
 - (IBAction)testScroll:(id)sender;
-
+@property (weak, nonatomic) ZKScrollableTabsViewController *vc;
+@property (assign, nonatomic) CGFloat lastPanPositionY;
 @end
 
 @implementation ViewController
@@ -70,11 +71,18 @@
 
 - (void)butAction:(UIButton*)sender {
   ZKScrollableTabsViewController *vc = [ZKScrollableTabsViewController new];
+  self.vc = vc;
   UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"boy"]];
   imgv.contentMode = UIViewContentModeScaleAspectFit;
   imgv.userInteractionEnabled = YES;
   [imgv sizeToFit];
   imgv.backgroundColor = [UIColor redColor];
+  UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(pan:)];
+  pan.delegate = self;
+  pan.delaysTouchesBegan = YES;
+  [imgv addGestureRecognizer:pan];
+  
   vc.headerView = imgv;
   
   NSMutableArray *vcs = [NSMutableArray array];
@@ -88,6 +96,14 @@
   [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)pan:(UIPanGestureRecognizer*)sender {
+  CGPoint position = [sender translationInView:sender.view.window];
+  if (sender.state == UIGestureRecognizerStateBegan) {
+    self.lastPanPositionY = position.y;
+  }
+  [self.vc onHeaderPanned:position.y - self.lastPanPositionY];
+  self.lastPanPositionY = position.y;
+}
 
 - (IBAction)testScroll:(id)sender {
   UIViewController *vc = [[TestScrollViewController alloc] init];

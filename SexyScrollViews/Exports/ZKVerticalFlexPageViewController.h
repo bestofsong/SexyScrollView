@@ -20,4 +20,6 @@
 
 @property (strong, nonatomic, nonnull) NSArray<UIViewController<ScrollPropertyDelegate>*> *pagesArray;
 
+- (void)onHeaderPanned:(CGFloat)deltaY;
+
 @end
